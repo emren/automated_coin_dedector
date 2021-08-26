@@ -15,6 +15,7 @@ class _HomeState extends State<Home> {
     var boolStreamProvider =
         Provider.of<BoolStreamProvider>(context, listen: false);
     boolStreamProvider.initBoolStream();
+
     super.initState();
   }
 

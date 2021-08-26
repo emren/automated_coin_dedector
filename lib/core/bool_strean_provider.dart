@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -18,6 +19,7 @@ extension BoolStringNameExtension on BoolString {
 }
 
 class BoolStreamProvider extends ChangeNotifier {
+
   bool shouldEmit = true;
 
   Random _random = new Random();
@@ -45,6 +47,17 @@ class BoolStreamProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
+  Future<void> playSound() async {
+    final assetsAudioPlayer = AssetsAudioPlayer();
+
+    assetsAudioPlayer.open(
+      Audio("assets/sound_asset.mp3"),
+    );
+    assetsAudioPlayer.play();
+  }
+
   Future<void> initBoolStream() async {
     while (shouldEmit) {
       //while (true) {
@@ -55,6 +68,7 @@ class BoolStreamProvider extends ChangeNotifier {
         print(boolean);
         if (boolean) {
           bString = BoolString.Real;
+          playSound();
         } else {
           bString = BoolString.Fake;
         }
