@@ -1,16 +1,20 @@
-# automated_coin_dedector
+## 1. Description
+Automated coin dedector is a stream based application where stream is updated on fixed time basis. Stream will produce **Fake** and **Real** strings and user will see an updated list of expandable widgets showing string and time.
 
-A new Flutter project.
+## 2. Chosen Technology
+Flutter Channel stable, 2.2.3, implemented null safe  **sdk: ">=2.12.0 <3.0.0"**
 
-## Getting Started
+## 3. Project Structure
+As a best practice, UI and logic has been separated. This is achieved by collecting ui files under ui folder and logic under core folder.
 
-This project is a starting point for a Flutter application.
+## 4. State Management
+For the state management **Provider** with **ChangeNotifier** has been implemented in this project. Changenotifier is Flutters own state solution, a wrapper for inherited widget, where it has notifylistener() function to update the widgets.
 
-A few resources to get you started if this is your first Flutter project:
+## 5. Packages Used
+**provider** For state management
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+**rxdart** For stream subjects
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**assets_audio_player** For sound implementation
+
+**intl** For datetime formatting
