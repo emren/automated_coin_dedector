@@ -26,6 +26,7 @@ dependencies:
   provider:
   rxdart:
   assets_audio_player:
+  intl:
 
 
 

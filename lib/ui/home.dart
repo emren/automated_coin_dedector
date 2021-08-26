@@ -1,6 +1,7 @@
 import 'package:automated_coin_dedector/core/bool_strean_provider.dart';
 import 'package:automated_coin_dedector/core/card_model.dart';
 import 'package:automated_coin_dedector/core/enums.dart';
+import 'package:automated_coin_dedector/ui/home_components.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +68,8 @@ class _HomeState extends State<Home> {
             stream: boolStreamProvider.myStream,
             builder: (context, snapshot) {
               //return Text(snapshot.data.toString());
-              return Text(snapshot.data!.bString.name);
+              //return Text(snapshot.data!.bString.name);
+              return ExpandableTile(str: snapshot.data!.bString.name, time: snapshot.data!.time,);
             },
           )),
         ));
