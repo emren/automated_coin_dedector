@@ -4,8 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
-
-enum BoolString {Fake, Real}
+enum BoolString { Fake, Real }
 
 extension BoolStringNameExtension on BoolString {
   String get name {
@@ -14,15 +13,17 @@ extension BoolStringNameExtension on BoolString {
         return 'Fake';
       case BoolString.Real:
         return 'Real';
-
     }
   }
 }
-class BoolStreamProvider extends ChangeNotifier {
 
-  Random random = new Random();
+class BoolStreamProvider extends ChangeNotifier {
+  bool shouldEmit = true;
+
+  Random _random = new Random();
 
   final _myController = BehaviorSubject<BoolString>.seeded(BoolString.Real);
+  late StreamSubscription<BoolString> subscription;
 
   get myController => _myController;
 
@@ -33,13 +34,26 @@ class BoolStreamProvider extends ChangeNotifier {
   String get getNameOfBoolString => _myController.value.name;
   bool get checkHasValue => _myController.hasValue;
 
+  void pause() {
+    shouldEmit = false;
+    notifyListeners();
+  }
+
+  void resume() {
+    shouldEmit = true;
+    initBoolStream();
+    notifyListeners();
+  }
+
   Future<void> initBoolStream() async {
-    while (true) {
+    while (shouldEmit) {
+      //while (true) {
+      subscription = _myController.stream.listen((value) {});
       await Future.delayed(Duration(seconds: 3), () {
-        var boolean = random.nextBool();
+        var boolean = _random.nextBool();
         BoolString bString;
         print(boolean);
-        if(boolean) {
+        if (boolean) {
           bString = BoolString.Real;
         } else {
           bString = BoolString.Fake;

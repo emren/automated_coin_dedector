@@ -38,6 +38,16 @@ class _HomeState extends State<Home> {
               return Text(snapshot.data!.name);
             },
           ),
+          leading: IconButton(
+            icon: boolStreamProvider.shouldEmit == true
+                ? Icon(Icons.pause)
+                : Icon(Icons.play_arrow),
+            onPressed: () {
+              boolStreamProvider.shouldEmit == true
+                  ? boolStreamProvider.pause()
+                  : boolStreamProvider.resume();
+            },
+          ),
         ),
         backgroundColor: Colors.white,
         body: Container(
