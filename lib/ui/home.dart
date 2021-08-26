@@ -1,4 +1,6 @@
 import 'package:automated_coin_dedector/core/bool_strean_provider.dart';
+import 'package:automated_coin_dedector/core/card_model.dart';
+import 'package:automated_coin_dedector/core/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,11 +34,13 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
         appBar: AppBar(
-          title: StreamBuilder<BoolString>(
-            initialData: BoolString.Real,
+          //title: StreamBuilder<BoolString>(
+          title: StreamBuilder<CardModel>(
+            //initialData: BoolString.Real,
+            initialData: CardModel(bString: BoolString.Real, time:DateTime.now()),
             stream: boolStreamProvider.myStream,
             builder: (context, snapshot) {
-              return Text(snapshot.data!.name);
+              return Text(snapshot.data!.bString.name);
             },
           ),
           leading: IconButton(
@@ -56,12 +60,14 @@ class _HomeState extends State<Home> {
           width: MediaQuery.of(context).size.width,
           child: Center(
               //child: Text(streamProvider.boolean.toString()),
-              child: StreamBuilder<BoolString>(
-            initialData: BoolString.Real,
+              //child: StreamBuilder<BoolString>(
+              child: StreamBuilder<CardModel>(
+            //initialData: BoolString.Real,
+            initialData: CardModel(bString: BoolString.Real, time: DateTime.now()),
             stream: boolStreamProvider.myStream,
             builder: (context, snapshot) {
               //return Text(snapshot.data.toString());
-              return Text(snapshot.data!.name);
+              return Text(snapshot.data!.bString.name);
             },
           )),
         ));
