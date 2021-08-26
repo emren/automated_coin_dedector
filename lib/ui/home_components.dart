@@ -1,10 +1,12 @@
+import 'package:automated_coin_dedector/core/card_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ExpandableTile extends StatelessWidget {
-  final String str;
-  final DateTime time;
-  const ExpandableTile({Key? key, required this.str, required this.time})
+  // final String str;
+  // final DateTime time;
+  final CardModel model;
+  const ExpandableTile({Key? key,   required this.model})
       : super(key: key);
 
   @override
@@ -13,9 +15,9 @@ class ExpandableTile extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(top: 36.0, left: 6.0, right: 6.0, bottom: 6.0),
         child: ExpansionTile(
-          title: Text(str),
+          title: Text(model.bString.toString()),
           children: <Widget>[
-            Text(DateFormat('yyyy-MM-dd – kk:mm').format(time)),
+            Text(DateFormat('yyyy-MM-dd – kk:mm').format(model.time)),
           ],
         ),
       ),

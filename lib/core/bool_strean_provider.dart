@@ -14,8 +14,9 @@ class BoolStreamProvider extends ChangeNotifier {
   Random _random = new Random();
 
   //final _myController = BehaviorSubject<BoolString>.seeded(BoolString.Real);
-  final _myController = BehaviorSubject<CardModel>.seeded(
-      CardModel(bString: BoolString.Real, time: DateTime.now()));
+  // final _myController = BehaviorSubject<CardModel>.seeded(
+  //     CardModel(bString: BoolString.Real, time: DateTime.now()));
+  final _myController = ReplaySubject<CardModel>();
 
   late StreamSubscription<BoolString> subscription;
 
@@ -27,8 +28,14 @@ class BoolStreamProvider extends ChangeNotifier {
   //Stream<BoolString> get myStream => _myController.stream;
   Stream<CardModel> get myStream => _myController.stream;
 
-  String get getNameOfBoolString => _myController.value.bString.name;
-  bool get checkHasValue => _myController.hasValue;
+  //String get getNameOfBoolString => _myController.value.bString.name;
+  String get getNameOfBoolString => _myController.values.last.bString.name;
+  //bool get checkHasValue => _myController.hasValue;
+  Future<bool> get checkHasValue async => await _myController.isEmpty;
+
+  Future<List<CardModel>>  getMyCardList() async {
+    return await _myController.stream.toList();
+  }
 
   void pause() {
     shouldEmit = false;

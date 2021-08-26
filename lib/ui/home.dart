@@ -67,9 +67,14 @@ class _HomeState extends State<Home> {
             initialData: CardModel(bString: BoolString.Real, time: DateTime.now()),
             stream: boolStreamProvider.myStream,
             builder: (context, snapshot) {
+              List<CardModel> list =[];
+              list.add(CardModel(bString: snapshot.data!.bString,time: snapshot.data!.time ));
               //return Text(snapshot.data.toString());
               //return Text(snapshot.data!.bString.name);
-              return ExpandableTile(str: snapshot.data!.bString.name, time: snapshot.data!.time,);
+              //return ExpandableTile(str: snapshot.data!.bString.name, time: snapshot.data!.time,);
+              return ListView.builder(itemCount: list.length,itemBuilder: (context, index){
+                return ExpandableTile(model: list[index]);
+              });
             },
           )),
         ));
