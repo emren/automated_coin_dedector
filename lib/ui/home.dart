@@ -29,14 +29,14 @@ class _HomeState extends State<Home> {
     var boolStreamProvider = Provider.of<BoolStreamProvider>(context);
 
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.white,
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Center(
           //child: Text(streamProvider.boolean.toString()),
-          child: StreamBuilder(stream: boolStreamProvider.myStream,builder:(context, snapshot){
-            return Text(snapshot.data.toString());
+          child: StreamBuilder(initialData: true,stream: boolStreamProvider.myStream,builder:(context, snapshot){
+            return Text(snapshot.data.toString() );
           }
             ,)
         ),
