@@ -22,13 +22,16 @@ class BoolStreamProvider extends ChangeNotifier {
 
   Random random = new Random();
 
-  final _myController = BehaviorSubject<BoolString>();
+  final _myController = BehaviorSubject<BoolString>.seeded(BoolString.Real);
 
   get myController => _myController;
 
   Sink<BoolString> get mySteamInputSink => _myController.sink;
 
   Stream<BoolString> get myStream => _myController.stream;
+
+  String get getNameOfBoolString => _myController.value.name;
+  bool get checkHasValue => _myController.hasValue;
 
   Future<void> initBoolStream() async {
     while (true) {

@@ -10,10 +10,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   @override
   void initState() {
-    var boolStreamProvider = Provider.of<BoolStreamProvider>(context, listen:  false);
+    var boolStreamProvider =
+        Provider.of<BoolStreamProvider>(context, listen: false);
     boolStreamProvider.initBoolStream();
     super.initState();
   }
@@ -24,23 +24,35 @@ class _HomeState extends State<Home> {
     boolStreamProvider.myStream.drain();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     var boolStreamProvider = Provider.of<BoolStreamProvider>(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Center(
-          //child: Text(streamProvider.boolean.toString()),
-          child: StreamBuilder(initialData: true,stream: boolStreamProvider.myStream,builder:(context, snapshot){
-            return Text(snapshot.data.toString() );
-          }
-            ,)
+        appBar: AppBar(
+          title: StreamBuilder<BoolString>(
+            initialData: BoolString.Real,
+            stream: boolStreamProvider.myStream,
+            builder: (context, snapshot) {
+              return Text(snapshot.data!.name);
+            },
+          ),
         ),
-      )
-    );
+        backgroundColor: Colors.white,
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Center(
+              //child: Text(streamProvider.boolean.toString()),
+              child: StreamBuilder<BoolString>(
+            initialData: BoolString.Real,
+            stream: boolStreamProvider.myStream,
+            builder: (context, snapshot) {
+              //return Text(snapshot.data.toString());
+              return Text(snapshot.data!.name);
+            },
+          )),
+        ));
   }
 }
