@@ -13,11 +13,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+  List<CardModel> list = [];
+
   @override
   void initState() {
     var boolStreamProvider =
         Provider.of<BoolStreamProvider>(context, listen: false);
     boolStreamProvider.initBoolStream();
+    // WidgetsBinding.instance!.addPostFrameCallback((_) {listAdd(
+    //   CardModel(bString: BoolString.Real, time: DateTime.now()),
+    // );});
 
     super.initState();
   }
@@ -29,10 +35,16 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 
+  // void listAdd(CardModel model) {
+  //   list.add(model);
+  //   listKey.currentState!.insertItem(0);
+  //   print(list);
+  // }
+
   @override
   Widget build(BuildContext context) {
     var boolStreamProvider = Provider.of<BoolStreamProvider>(context);
-    List<CardModel> list = [];
+
     return Scaffold(
         appBar: AppBar(
           title: StreamBuilder<CardModel>(
@@ -64,15 +76,30 @@ class _HomeState extends State<Home> {
                 CardModel(bString: BoolString.Real, time: DateTime.now()),
             stream: boolStreamProvider.myStream,
             builder: (context, snapshot) {
+              // listAdd(CardModel(
+              //     bString: snapshot.data!.bString, time: snapshot.data!.time));
               list.add(CardModel(
                   bString: snapshot.data!.bString, time: snapshot.data!.time));
-
-              return ListView.builder(
-                  itemCount: list.length,
-                  reverse: true,
-                  itemBuilder: (context, index) {
-                    return ExpandableTile(model: list[index]);
-                  });
+              if(listKey.currentState != null )listKey.currentState!.insertItem(0);
+              print(list);
+              return AnimatedList(
+                key: listKey,
+                reverse: false,
+                initialItemCount: list.length,
+                itemBuilder: (context, index, animation) {
+                  return SlideTransition(
+                      position: animation.drive(
+                          Tween(begin: Offset(2, 0.0), end: Offset(0.0, 0.0))
+                              .chain(CurveTween(curve: Curves.elasticInOut))),
+                      child: ExpandableTile(model: list[index]));
+                },
+              );
+              // return ListView.builder(
+              //     itemCount: list.length,
+              //     reverse: true,
+              //     itemBuilder: (context, index) {
+              //       return ExpandableTile(model: list[index]);
+              //     });
             },
           )),
         ));
