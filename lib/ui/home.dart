@@ -3,6 +3,7 @@ import 'package:automated_coin_dedector/core/card_model.dart';
 import 'package:automated_coin_dedector/core/enums.dart';
 import 'package:automated_coin_dedector/ui/home_components.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -72,7 +73,7 @@ class _HomeState extends State<Home> {
               if (listKey.currentState != null)
                 listKey.currentState!.insertItem(list.length - 1);
               if (controller.positions.isNotEmpty)
-                controller.animateTo(controller.position.maxScrollExtent,
+                controller.animateTo(controller.position.maxScrollExtent + 200,
                     duration: Duration(milliseconds: 10), curve: Curves.ease);
               return AnimatedList(
                 controller: controller,

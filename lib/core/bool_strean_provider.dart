@@ -62,7 +62,7 @@ class BoolStreamProvider extends ChangeNotifier {
       await Future.delayed(Duration(seconds: 3), () {
         var boolean = _random.nextBool();
         BoolString bString;
-        print(boolean);
+
         if (boolean) {
           bString = BoolString.Real;
           playSound();
