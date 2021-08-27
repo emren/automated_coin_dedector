@@ -5,6 +5,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'dart:developer' as dev;
 
 import 'card_model.dart';
 import 'enums.dart';
@@ -60,14 +61,11 @@ class BoolStreamProvider extends ChangeNotifier {
 
   String getTimeAgo(CardModel card){
     var ago = DateTime.now().subtract(DateTime.now().difference(card.time));
-    print(timeago.format(ago));
     return timeago.format(ago);
   }
 
   Future<void> initBoolStream() async {
     while (shouldEmit) {
-      //while (true) {
-      //subscription = _myController.stream.listen((value) {});
       await Future.delayed(Duration(seconds: 3), () {
         var boolean = _random.nextBool();
         BoolString bString;
@@ -78,11 +76,9 @@ class BoolStreamProvider extends ChangeNotifier {
         } else {
           bString = BoolString.Fake;
         }
-        //mySteamInputSink.add(bString);
         var model = CardModel(bString: bString, time: DateTime.now());
         mySteamInputSink.add(model);
-        model.log();
-        //print(_myController.value);
+        dev.log(model.log());
       });
     }
   }

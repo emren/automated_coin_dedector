@@ -6,6 +6,6 @@ class CardModel{
 
   CardModel({required this.bString, required this.time});
 
-  void log() =>
-      print('CardModel: $bString $time');
+  String log() =>
+      'CardModel: $bString $time';
 }
