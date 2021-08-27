@@ -4,9 +4,11 @@ import 'dart:math';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import 'card_model.dart';
 import 'enums.dart';
+
 
 class BoolStreamProvider extends ChangeNotifier {
   bool shouldEmit = true;
@@ -50,11 +52,16 @@ class BoolStreamProvider extends ChangeNotifier {
 
   Future<void> playSound() async {
     final assetsAudioPlayer = AssetsAudioPlayer();
-
     assetsAudioPlayer.open(
       Audio("assets/sound_asset.mp3"),
     );
     assetsAudioPlayer.play();
+  }
+
+  String getTimeAgo(CardModel card){
+    var ago = DateTime.now().subtract(DateTime.now().difference(card.time));
+    print(timeago.format(ago));
+    return timeago.format(ago);
   }
 
   Future<void> initBoolStream() async {

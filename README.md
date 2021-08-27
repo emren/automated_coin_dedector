@@ -17,4 +17,4 @@ For the state management **Provider** with **ChangeNotifier** has been implement
 
 **assets_audio_player** For sound implementation
 
-**intl** For datetime formatting
+**timeago** For time formatting
