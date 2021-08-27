@@ -10,30 +10,23 @@ import 'dart:developer' as dev;
 import 'card_model.dart';
 import 'enums.dart';
 
-
 class BoolStreamProvider extends ChangeNotifier {
   bool shouldEmit = true;
 
   Random _random = new Random();
 
-  //final _myController = BehaviorSubject<BoolString>.seeded(BoolString.Real);
-  // final _myController = BehaviorSubject<CardModel>.seeded(
-  //     CardModel(bString: BoolString.Real, time: DateTime.now()));
   final _myController = ReplaySubject<CardModel>();
 
   late StreamSubscription<BoolString> subscription;
 
   get myController => _myController;
 
-  //Sink<BoolString> get mySteamInputSink => _myController.sink;
   Sink<CardModel> get mySteamInputSink => _myController.sink;
 
-  //Stream<BoolString> get myStream => _myController.stream;
   Stream<CardModel> get myStream => _myController.stream;
 
-  //String get getNameOfBoolString => _myController.value.bString.name;
   String get getNameOfBoolString => _myController.values.last.bString.name;
-  //bool get checkHasValue => _myController.hasValue;
+
   Future<bool> get checkHasValue async => await _myController.isEmpty;
 
   Future<List<CardModel>> getMyCardList() async {
@@ -59,7 +52,7 @@ class BoolStreamProvider extends ChangeNotifier {
     assetsAudioPlayer.play();
   }
 
-  String getTimeAgo(CardModel card){
+  String getTimeAgo(CardModel card) {
     var ago = DateTime.now().subtract(DateTime.now().difference(card.time));
     return timeago.format(ago);
   }
