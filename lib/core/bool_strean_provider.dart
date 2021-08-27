@@ -33,7 +33,7 @@ class BoolStreamProvider extends ChangeNotifier {
   //bool get checkHasValue => _myController.hasValue;
   Future<bool> get checkHasValue async => await _myController.isEmpty;
 
-  Future<List<CardModel>>  getMyCardList() async {
+  Future<List<CardModel>> getMyCardList() async {
     return await _myController.stream.toList();
   }
 
@@ -76,7 +76,6 @@ class BoolStreamProvider extends ChangeNotifier {
         mySteamInputSink.add(model);
         model.log();
         //print(_myController.value);
-
       });
     }
   }

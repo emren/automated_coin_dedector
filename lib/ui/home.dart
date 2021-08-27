@@ -32,13 +32,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var boolStreamProvider = Provider.of<BoolStreamProvider>(context);
-
+    List<CardModel> list = [];
     return Scaffold(
         appBar: AppBar(
-          //title: StreamBuilder<BoolString>(
           title: StreamBuilder<CardModel>(
-            //initialData: BoolString.Real,
-            initialData: CardModel(bString: BoolString.Real, time:DateTime.now()),
+            initialData:
+                CardModel(bString: BoolString.Real, time: DateTime.now()),
             stream: boolStreamProvider.myStream,
             builder: (context, snapshot) {
               return Text(snapshot.data!.bString.name);
@@ -60,21 +59,20 @@ class _HomeState extends State<Home> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Center(
-              //child: Text(streamProvider.boolean.toString()),
-              //child: StreamBuilder<BoolString>(
               child: StreamBuilder<CardModel>(
-            //initialData: BoolString.Real,
-            initialData: CardModel(bString: BoolString.Real, time: DateTime.now()),
+            initialData:
+                CardModel(bString: BoolString.Real, time: DateTime.now()),
             stream: boolStreamProvider.myStream,
             builder: (context, snapshot) {
-              List<CardModel> list =[];
-              list.add(CardModel(bString: snapshot.data!.bString,time: snapshot.data!.time ));
-              //return Text(snapshot.data.toString());
-              //return Text(snapshot.data!.bString.name);
-              //return ExpandableTile(str: snapshot.data!.bString.name, time: snapshot.data!.time,);
-              return ListView.builder(itemCount: list.length,itemBuilder: (context, index){
-                return ExpandableTile(model: list[index]);
-              });
+              list.add(CardModel(
+                  bString: snapshot.data!.bString, time: snapshot.data!.time));
+
+              return ListView.builder(
+                  itemCount: list.length,
+                  reverse: true,
+                  itemBuilder: (context, index) {
+                    return ExpandableTile(model: list[index]);
+                  });
             },
           )),
         ));
